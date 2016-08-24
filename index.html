@@ -1,1 +1,145 @@
-"hello blog" 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>lihui.io</title>
+    <link href="/site.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav"><a href="/" class="blog-nav-item">首页</a><a href="/" class="blog-nav-item">合集</a><a href="/" class="blog-nav-item">归档</a></nav>
+      </div>
+    </div>
+    <div class="container"> 
+      <div class="blog-main">
+        <div class="blog-post"> 
+          <h2 class="blog-post-title"> <a href="/article/Visual Studio Code Grunt文件不在根目录，如何配置task？">Visual Studio Code Grunt文件不在根目录，如何配置task？</a></h2>
+          <div class="blog-post-brief"><p>Visual Studio Code 能够自动检测grunt文件，无需配置就给使用快捷键执行grunt编译任务：</p>
+<blockquote>
+<p>VS Code can autodetect tasks from within Gulp, Grunt and Jake files. This adds their tasks to the task list without requiring additional configuration (unless you need to use a problem matcher, more on that in a moment).</p>
+</blockquote>
+<p>但是如果grunt文件不在VS Code管理的根目录，那么用快捷键执行就会报错。
+解决方法是在tasks.json中配置命令的<em>cwd</em>参数为grunt文件所在的文件夹。
+其中<em>${cwd}</em>是VS Code预定的变量，代表当前的工作目录。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span>
+    <span class="hljs-comment">// for the documentation about the tasks.json format</span>
+    <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.1.0"</span>,
+    <span class="hljs-string">"command"</span>: <span class="hljs-string">"grunt"</span>,
+    <span class="hljs-string">"isShellCommand"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"showOutput"</span>: <span class="hljs-string">"always"</span>,
+    <span class="hljs-string">"options"</span>: {
+        <span class="hljs-string">"cwd"</span>: <span class="hljs-string">"${cwd}/subfolder"</span>
+    }
+}
+</code></pre>
+
+            <div class="blog-post-brief-mask"></div>
+          </div>
+        </div>
+        <div class="text-center">      <a href="/article/Visual Studio Code Grunt文件不在根目录，如何配置task？">浏览全文</a></div>
+        <hr>
+        <div class="blog-post"> 
+          <h2 class="blog-post-title"> <a href="/article/搭建基于Github Pages的轻博客(二)">搭建基于Github Pages的轻博客(二)</a></h2>
+          <div class="blog-post-brief"><p>Github Pages能够将我们的页面展示在互联网上。
+虽然页面内容由我们来决定，但是所有页面都需要手动去写很不现实。
+Github Pages官方推荐了使用<a href="https://jekyllrb.com/docs/quickstart/">Jekyll</a>来生成博客。
+这时一个ruby环境的静态博客生成工具，感兴趣的朋友可以了解一下。</p>
+<p>作为前端开发，nodejs和JavaScript是比较常用的工具和语言，用起来会更顺手。</p>
+<p>经过一番查找，发现<a href="https://github.com/hexojs/hexo">hexo</a>是一款基于Node.js的静态博客框架。
+安装使用了一番，感觉不适合我搭建轻博客的初衷。
+原因是自己的想法会被框架束缚(比如我想对生成文章的地址进行定制，使用本地图片等等)。
+想要按照自己的意愿来只能通过配置或在hack。</p>
+<h1 id="-jade-">使用Jade模板语言</h1>
+<p><a href="http://jade-lang.com/">Jade</a>的官方介绍：</p>
+<blockquote>
+<p>Jade is a terse language for writing HTML templates.</p>
+<ul>
+<li>Produces HTML</li>
+<li>Supports dynamic code</li>
+<li>Supports reusability (DRY)</li>
+</ul>
+</blockquote>
+<p>简练、支持动态代码，对于生成博客页面最合适不过。</p>
+<p>比如index.jade的文件内容如下：</p>
+<pre><code><span class="hljs-selector-tag">div</span> !{<span class="hljs-attribute">content</span>}
+<span class="hljs-selector-tag">ul</span>
+  each val <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+    li= val
+</code></pre><p>generate.js的代码：</p>
+<pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">var</span> fn = jade.compileFile(<span class="hljs-string">'index.jade'</span>, { <span class="hljs-string">'pretty'</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">var</span> html = fn({ <span class="hljs-string">'content'</span>: <span class="hljs-string">'&lt;span&gt;hello&lt;/span&gt;'</span> });
+
+fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
+</code></pre><p>命令行执行：</p>
+<pre><code class="lang-cmd">node generate.js
+</code></pre>
+<p>生成的index.html内容：</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre><h1 id="-">静态博客生成器</h1>
+<p>上面的代码片段足以证明，使用jade是能够支持生成静态博客这个想法的。</p>
+<p>接下来需要完善的是：</p>
+<ol>
+<li>完善generate.js代码。<em>content</em>的内容应该是从文件中读取，而不是hardcode在代码中。</li>
+<li>完善index.jade文件。让你的页面看上去更完整、生动。</li>
+</ol>
+
+            <div class="blog-post-brief-mask"></div>
+          </div>
+        </div>
+        <div class="text-center">      <a href="/article/搭建基于Github Pages的轻博客(二)">浏览全文</a></div>
+        <hr>
+        <div class="blog-post"> 
+          <h2 class="blog-post-title"> <a href="/article/搭建基于Github Pages的轻博客(一)">搭建基于Github Pages的轻博客(一)</a></h2>
+          <div class="blog-post-brief"><p>我从事软件开发工作已经若干年，一直没有写博客是因为常用的东西已经记到脑子里了，不常用的也没必要记到脑子里。
+当然，最主要的原因还是因为懒。
+现在想写博客是想把自己的知识固化下来，也能帮助遇到同样问题的人。
+现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
+最终我决定自己搭建一个功能单一的轻博客。
+这个文章系列会介绍我是一步一步如何搭建一个轻博客的。
+如果你已经具备了一些简单的前端开发的知识，那么就可以轻松理解这里的文章并搭建属于自己的博客。</p>
+<h1 id="-github-pages">为什么用Github Pages</h1>
+<ul>
+<li>它是免费的。</li>
+<li>使用git代替ftp上传页面，便于页面管理，而且更酷。</li>
+<li>虽然只提供静态页面的托管，但是对于建立一个轻博客足够。</li>
+</ul>
+<h1 id="-github-pages">注册Github Pages</h1>
+<p>去<a href="https://pages.github.com/">Github Pages</a>会看到详细的向导，介绍如何创建一个托管页面的仓库。
+当然，创建仓库的前提已经注册了Github的账号。
+登录Github后创建一个仓库，值得一提的是仓库的名称必须是<em>username.github.io</em>的格式。
+可能有些人看到这个还是不清楚怎么命名仓库。
+这里举个栗子，我的Github用户名是leehooi，那么仓库的名称就是<em>leehooi.github.io</em>，创建好的git仓库地址就是<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>。
+<img src="1.png" alt="1.png"></p>
+<h1 id="-">创建第一个页面</h1>
+<p>仓库创建好了之后，在本地电脑由仓库地址(<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>)克隆一个本地仓库。
+在本地仓库根目录创建一个index.html的文件，里面随便写几个字符。
+完成后提交并且push。
+在浏览器输入网址<em>leehooi.github.io</em>便可以看到网址首页里面是刚才输入的几个字符。</p>
+<p><img src="2.png" alt="2.png"></p>
+<p>至此，博客的原型已经完成，并且可以在其他地方通过互联网访问了(虽然没人想访问这样简陋的网站)。</p>
+<p>后面的系列会介绍如何自动生成html。</p>
+
+            <div class="blog-post-brief-mask"></div>
+          </div>
+        </div>
+        <div class="text-center">      <a href="/article/搭建基于Github Pages的轻博客(一)">浏览全文</a></div>
+        <hr>
+      </div>
+    </div>
+    <footer class="blog-footer">
+      <p>lihui.io</p>
+    </footer>
+  </body>
+</html>
