@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>使用Github Pages搭建轻博客[2]</title>
+    <link href="/site.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav"><a href="/" class="reverse blog-nav-item brand-font">lihui.io</a><a href="/" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/" class="reverse blog-nav-item">归档</a></nav>
+      </div>
+    </div>
+    <div class="container"> 
+      <div class="blog-main">
+        <div class="blog-post">
+          <h2 class="blog-post-title">使用Github Pages搭建轻博客[2]</h2>
+          <div class="blog-post-meta clearfix"><span>2016-08-24 12:09:40</span>
+            <ul class="list-inline pull-right">
+              <li><a href="/tag/nodejs.html"><span class="blog-tag">nodejs</span></a></li>
+              <li><a href="/tag/jade.html"><span class="blog-tag">jade</span></a></li>
+            </ul>
+          </div><p>Github Pages能够将我们的页面展示在互联网上。
+虽然页面内容由我们来决定，但是所有页面都需要手动去写很不现实。
+Github Pages官方推荐了使用<a href="https://jekyllrb.com/docs/quickstart/">Jekyll</a>来生成博客。
+这时一个ruby环境的静态博客生成工具，感兴趣的朋友可以了解一下。</p>
+<p>作为前端开发，nodejs和JavaScript是比较常用的工具和语言，用起来会更顺手。</p>
+<p>经过一番查找，发现<a href="https://github.com/hexojs/hexo">hexo</a>是一款基于Node.js的静态博客框架。
+安装使用了一番，感觉不适合我搭建轻博客的初衷。
+原因是自己的想法会被框架束缚(比如我想对生成文章的地址进行定制，使用本地图片等等)。
+想要按照自己的意愿来只能通过配置或在hack。</p>
+<h1 id="-jade-">使用Jade模板语言</h1>
+<p><a href="http://jade-lang.com/">Jade</a>的官方介绍：</p>
+<blockquote>
+<p>Jade is a terse language for writing HTML templates.</p>
+<ul>
+<li>Produces HTML</li>
+<li>Supports dynamic code</li>
+<li>Supports reusability (DRY)</li>
+</ul>
+</blockquote>
+<p>简练、支持动态代码，对于生成博客页面最合适不过。</p>
+<p>比如index.jade的文件内容如下：</p>
+<pre><code><span class="hljs-selector-tag">div</span> !{<span class="hljs-attribute">content</span>}
+<span class="hljs-selector-tag">ul</span>
+  each val <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+    li= val
+</code></pre><p>generate.js的代码：</p>
+<pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">var</span> fn = jade.compileFile(<span class="hljs-string">'index.jade'</span>, { <span class="hljs-string">'pretty'</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">var</span> html = fn({ <span class="hljs-string">'content'</span>: <span class="hljs-string">'&lt;span&gt;hello&lt;/span&gt;'</span> });
+
+fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
+</code></pre><p>命令行执行：</p>
+<pre><code class="lang-cmd">node generate.js
+</code></pre>
+<p>生成的index.html内容：</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre><h1 id="-">静态博客生成器</h1>
+<p>上面的代码片段足以证明，使用jade是能够支持生成静态博客这个想法的。</p>
+<p>接下来需要完善的是：</p>
+<ol>
+<li>完善generate.js代码。<em>content</em>的内容应该是从文件中读取，而不是hardcode在代码中。</li>
+<li>完善index.jade文件。让你的页面看上去更完整、生动。</li>
+</ol>
+
+        </div>
+      </div>
+    </div>
+    <footer class="blog-footer">
+      <p>info@lihui.io</p>
+    </footer>
+  </body>
+</html>

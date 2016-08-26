@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github Pages - lihui.io</title>
+    <link href="/site.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav"><a href="/" class="reverse blog-nav-item brand-font">lihui.io</a><a href="/" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/" class="reverse blog-nav-item">归档</a></nav>
+      </div>
+    </div>
+    <div class="container"> 
+      <div class="blog-header">
+        <h2><a href="/tag/Github Pages.html" class="blog-tag"><span>Github Pages</span><span class="badge">2</span></a></h2>
+      </div>
+      <div class="blog-main">
+        <div class="blog-post"> 
+          <h2 class="blog-post-title"> <a href="/article/使用Github Pages搭建轻博客[1]" class="reverse">使用Github Pages搭建轻博客[1]</a></h2>
+          <div class="blog-post-brief"><p>我从事软件开发工作已经若干年，一直没有写博客是因为常用的东西已经记到脑子里了，不常用的也没必要记到脑子里。
+当然，最主要的原因还是因为懒。
+现在想写博客是想把自己的知识固化下来，也能帮助遇到同样问题的人。
+现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
+最终我决定自己搭建一个功能单一的轻博客。
+这个文章系列会介绍我是一步一步如何搭建一个轻博客的。
+如果你已经具备了一些简单的前端开发的知识，那么就可以轻松理解这里的文章并搭建属于自己的博客。</p>
+<h1 id="-github-pages">为什么用Github Pages</h1>
+<ul>
+<li>它是免费的。</li>
+<li>使用git代替ftp上传页面，便于页面管理，而且更酷。</li>
+<li>虽然只提供静态页面的托管，但是对于建立一个轻博客足够。</li>
+</ul>
+<h1 id="-github-pages">注册Github Pages</h1>
+<p>去<a href="https://pages.github.com/">Github Pages</a>会看到详细的向导，介绍如何创建一个托管页面的仓库。
+当然，创建仓库的前提已经注册了Github的账号。
+登录Github后创建一个仓库，值得一提的是仓库的名称必须是<em>username.github.io</em>的格式。
+可能有些人看到这个还是不清楚怎么命名仓库。
+这里举个栗子，我的Github用户名是leehooi，那么仓库的名称就是<em>leehooi.github.io</em>，创建好的git仓库地址就是<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>。
+<img src="1.png" alt="1.png"></p>
+<h1 id="-">创建第一个页面</h1>
+<p>仓库创建好了之后，在本地电脑由仓库地址(<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>)克隆一个本地仓库。
+在本地仓库根目录创建一个index.html的文件，里面随便写几个字符。
+完成后提交并且push。
+在浏览器输入网址<em>leehooi.github.io</em>便可以看到网址首页里面是刚才输入的几个字符。</p>
+<p><img src="2.png" alt="2.png"></p>
+<p>至此，博客的原型已经完成，并且可以在其他地方通过互联网访问了(虽然没人想访问这样简陋的网站)。</p>
+<p>后面的系列会介绍如何自动生成html。</p>
+
+            <div class="blog-post-brief-mask"></div>
+          </div>
+        </div>
+        <div class="text-center">      <a href="/article/使用Github Pages搭建轻博客[1]" class="center-block">阅读全文</a></div>
+        <hr>
+        <div class="blog-post"> 
+          <h2 class="blog-post-title"> <a href="/article/使用Github Pages搭建轻博客[3]" class="reverse">使用Github Pages搭建轻博客[3]</a></h2>
+          <div class="blog-post-brief"><p>想要你的博客更加个性化？
+为你的博客配置一个属于自己的域名吧。
+当购买了心仪的域名后，阅读这篇文章，介绍如何使用自己的域名访问博客。
+我购买的域名是<em>lihui.io</em>。
+下面介绍如何绑定这个域名到我的Github Pagse，以便在浏览器输入 <em><a href="http://lihui.io">http://lihui.io</a></em> 就能访问我的博客。</p>
+<h1 id="1-github-pagse">1 配置Github Pagse</h1>
+<p>在Github Pagse的仓库页面，点击<em>Settings</em>进入配置页面。
+在页面中找到<em>Custom domain</em>区域，在里面输入要配置的域名，然后点击<em>Save</em>。</p>
+<p>这里可以输入的域名分为三种：</p>
+<ol>
+<li>一级域名：<em>lihui.io</em></li>
+<li>www二级域名：<em>www.lihui.io</em></li>
+<li>自定义二级域名，比如<em>blog.lihui.io</em></li>
+</ol>
+<p>这三种的域名解析配置不太一下，下面会介绍。</p>
+<h1 id="2-">2 配置域名解析</h1>
+<p>在购买域名的供应商网站，进入到域名管理界面，找到配置域名解析的页面。
+不同的供应商页面会有所不同，但大致功能是类似的。</p>
+<h2 id="2-1-lihui-io-www-lihui-io-">2.1 <em>lihui.io</em> 或 <em>www.lihui.io</em> 的配置</h2>
+<p>根据Github的帮助信息，这两种域名的配置类似，需要为要配置的域名添加一条<em>ALIAS</em>或<em>ANAME</em>或<em>A</em>解析记录。</p>
+<p><em>ALIAS</em>和<em>ANAME</em>的配置类似：</p>
+<ul>
+<li>选定<em>记录类型</em>后，<em>记录值</em>输入原来的域名<em>leehooi.github.io</em>。</li>
+<li>如果是<em>lihui.io</em>，那么<em>主机记录</em>输入<em>@</em>。</li>
+<li>如果是<em>www.lihui.io</em>，那么<em>主机记录</em>输入<em>www</em>。</li>
+</ul>
+<p>但是有一些供应商并不支持<em>ALIAS</em>和<em>ANAME</em>的记录类型。</p>
+<p>那么只能用<em>A</em>类型：</p>
+<ul>
+<li>选定<em>记录类型</em>为<em>A</em>。</li>
+<li><em>记录值</em>需要输入一个IP地址。
+Github提供了<em>192.30.252.153</em>和<em>192.30.252.153</em>两个IP地址，并要求为这两个IP分别添加一条记录。
+具体参考<strong><a href="https://help.github.com/articles/setting-up-an-apex-domain/#configuring-a-records-with-your-dns-provider">Github</a></strong>的帮助。</li>
+</ul>
+<p>配置完解析记录就可以通过新域名访问了。</p>
+<p>如果同时配置了<em>lihui.io</em>和<em>www.lihui.io</em>的域名：</p>
+<ul>
+<li>当访问<em>www.lihui.io</em>时，Github会自动跳转到<em>lihui.io</em>。</li>
+<li>如果<em>Github Pagse</em>中配置的域名是<em>www.lihui.io</em>，
+那么当访问<em>lihui.io</em>时，Github会自动跳转到<em>www.lihui.io</em>。</li>
+</ul>
+<h2 id="2-2-blog-lihui-io-">2.2 <em>blog.lihui.io</em> 的配置</h2>
+<p>自定义二级域名需要配置一条<em>CNAME</em>类型的记录。</p>
+<p><em>主机记录</em>输入<em>blog</em>。</p>
+<p><em>记录值</em>输入<em>leehooi.github.io</em>。</p>
+<p>至此域名的配置已经完成了。
+配置完成后新域名不一定立刻生效，因为DNS的更新需要一定时间，一般几个小时之内就能访问了。</p>
+
+            <div class="blog-post-brief-mask"></div>
+          </div>
+        </div>
+        <div class="text-center">      <a href="/article/使用Github Pages搭建轻博客[3]" class="center-block">阅读全文</a></div>
+        <hr>
+      </div>
+    </div>
+    <footer class="blog-footer">
+      <p>info@lihui.io</p>
+    </footer>
+  </body>
+</html>
