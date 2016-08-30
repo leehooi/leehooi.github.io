@@ -1,0 +1,126 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>使用Github Pages搭建轻博客 - Li Hui</title><link href="/site.css" rel="stylesheet"></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[1].html" class="reverse">使用Github Pages搭建轻博客[1]</a></h2><div class="blog-post-brief"><p>现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
+最终我决定自己搭建一个功能单一的轻博客。
+这个文章系列会介绍我是一步一步如何搭建一个轻博客的。
+如果你已经具备了一些简单的前端开发的知识，那么就可以轻松理解这里的文章并搭建属于自己的博客。</p>
+<h1 id="-github-pages">为什么用Github Pages</h1>
+<ul>
+<li>它是免费的。</li>
+<li>使用git代替ftp上传页面，便于页面管理，而且更酷。</li>
+<li>虽然只提供静态页面的托管，但是对于建立一个轻博客足够。</li>
+</ul>
+<h1 id="-github-pages">注册Github Pages</h1>
+<p>去<a href="https://pages.github.com/">Github Pages</a>会看到详细的向导，介绍如何创建一个托管页面的仓库。
+当然，创建仓库的前提已经注册了Github的账号。
+登录Github后创建一个仓库，值得一提的是仓库的名称必须是<em>username.github.io</em>的格式。
+可能有些人看到这个还是不清楚怎么命名仓库。
+这里举个栗子，我的Github用户名是leehooi，那么仓库的名称就是<em>leehooi.github.io</em>，创建好的git仓库地址就是<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>。
+<img x src="/article/使用Github-Pages搭建轻博客[1]/1.png"></img></p>
+<h1 id="-">创建第一个页面</h1>
+<p>仓库创建好了之后，在本地电脑由仓库地址(<em><a href="https://github.com/leehooi/leehooi.github.io.git">https://github.com/leehooi/leehooi.github.io.git</a></em>)克隆一个本地仓库。
+在本地仓库根目录创建一个index.html的文件，里面随便写几个字符。
+完成后提交并且push。
+在浏览器输入网址<em>leehooi.github.io</em>便可以看到网址首页里面是刚才输入的几个字符。</p>
+<p><img x src="/article/使用Github-Pages搭建轻博客[1]/2.png"></img></p>
+<p>至此，博客的原型已经完成，并且可以在其他地方通过互联网访问了(虽然没人想访问这样简陋的网站)。</p>
+<p>后面的系列会介绍如何自动生成html。</p>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[1].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[2].html" class="reverse">使用Github Pages搭建轻博客[2]</a></h2><div class="blog-post-brief"><p>Github Pages能够将我们的页面展示在互联网上。
+虽然页面内容由我们来决定，但是所有页面都需要手动去写很不现实。
+Github Pages官方推荐了使用<a href="https://jekyllrb.com/docs/quickstart/">Jekyll</a>来生成博客。
+这时一个ruby环境的静态博客生成工具，感兴趣的朋友可以了解一下。</p>
+<p>作为前端开发，nodejs和JavaScript是比较常用的工具和语言，用起来会更顺手。</p>
+<p>经过一番查找，发现<a href="https://github.com/hexojs/hexo">hexo</a>是一款基于Node.js的静态博客框架。
+安装使用了一番，感觉不适合我搭建轻博客的初衷。
+原因是自己的想法会被框架束缚(比如我想对生成文章的地址进行定制，使用本地图片等等)。
+想要按照自己的意愿来只能通过配置或在hack。</p>
+<h1 id="-jade-">使用Jade模板语言</h1>
+<p><a href="http://jade-lang.com/">Jade</a>的官方介绍：</p>
+<blockquote>
+<p>Jade is a terse language for writing HTML templates.</p>
+<ul>
+<li>Produces HTML</li>
+<li>Supports dynamic code</li>
+<li>Supports reusability (DRY)</li>
+</ul>
+</blockquote>
+<p>简练、支持动态代码，对于生成博客页面最合适不过。</p>
+<p>比如index.jade的文件内容如下：</p>
+<pre><code><span class="hljs-selector-tag">div</span> !{<span class="hljs-attribute">content</span>}
+<span class="hljs-selector-tag">ul</span>
+  each val <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+    li= val
+</code></pre><p>generate.js的代码：</p>
+<pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">var</span> fn = jade.compileFile(<span class="hljs-string">'index.jade'</span>, { <span class="hljs-string">'pretty'</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">var</span> html = fn({ <span class="hljs-string">'content'</span>: <span class="hljs-string">'&lt;span&gt;hello&lt;/span&gt;'</span> });
+
+fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
+</code></pre><p>命令行执行：</p>
+<pre><code class="lang-cmd">node generate.js
+</code></pre>
+<p>生成的index.html内容：</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre><h1 id="-">静态博客生成器</h1>
+<p>上面的代码片段足以证明，使用jade是能够支持生成静态博客这个想法的。</p>
+<p>接下来需要完善的是：</p>
+<ol>
+<li>完善generate.js代码。<em>content</em>的内容应该是从文件中读取，而不是hardcode在代码中。</li>
+<li>完善index.jade文件。让你的页面看上去更完整、生动。</li>
+</ol>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[2].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[3].html" class="reverse">使用Github Pages搭建轻博客[3]</a></h2><div class="blog-post-brief"><p>想要你的博客更加个性化？
+为你的博客配置一个属于自己的域名吧。
+当购买了心仪的域名后，阅读这篇文章，介绍如何使用自己的域名访问博客。
+我购买的域名是<em>lihui.io</em>。
+下面介绍如何绑定这个域名到我的Github Pagse，以便在浏览器输入 <em><a href="http://lihui.io">http://lihui.io</a></em> 就能访问我的博客。</p>
+<h1 id="1-github-pagse">1 配置Github Pagse</h1>
+<p>在Github Pagse的仓库页面，点击<em>Settings</em>进入配置页面。
+在页面中找到<em>Custom domain</em>区域，在里面输入要配置的域名，然后点击<em>Save</em>。</p>
+<p>这里可以输入的域名分为三种：</p>
+<ol>
+<li>一级域名：<em>lihui.io</em></li>
+<li>www二级域名：<em>www.lihui.io</em></li>
+<li>自定义二级域名，比如<em>blog.lihui.io</em></li>
+</ol>
+<p>这三种的域名解析配置不太一下，下面会介绍。</p>
+<h1 id="2-">2 配置域名解析</h1>
+<p>在购买域名的供应商网站，进入到域名管理界面，找到配置域名解析的页面。
+不同的供应商页面会有所不同，但大致功能是类似的。</p>
+<h2 id="2-1-lihui-io-www-lihui-io-">2.1 <em>lihui.io</em> 或 <em>www.lihui.io</em> 的配置</h2>
+<p>根据Github的帮助信息，这两种域名的配置类似，需要为要配置的域名添加一条<em>ALIAS</em>或<em>ANAME</em>或<em>A</em>解析记录。</p>
+<p><em>ALIAS</em>和<em>ANAME</em>的配置类似：</p>
+<ul>
+<li>选定<em>记录类型</em>后，<em>记录值</em>输入原来的域名<em>leehooi.github.io</em>。</li>
+<li>如果是<em>lihui.io</em>，那么<em>主机记录</em>输入<em>@</em>。</li>
+<li>如果是<em>www.lihui.io</em>，那么<em>主机记录</em>输入<em>www</em>。</li>
+</ul>
+<p>但是有一些供应商并不支持<em>ALIAS</em>和<em>ANAME</em>的记录类型。</p>
+<p>那么只能用<em>A</em>类型：</p>
+<ul>
+<li>选定<em>记录类型</em>为<em>A</em>。</li>
+<li><em>记录值</em>需要输入一个IP地址。
+Github提供了<em>192.30.252.153</em>和<em>192.30.252.153</em>两个IP地址，并要求为这两个IP分别添加一条记录。
+具体参考<strong><a href="https://help.github.com/articles/setting-up-an-apex-domain/#configuring-a-records-with-your-dns-provider">Github</a></strong>的帮助。</li>
+</ul>
+<p>配置完解析记录就可以通过新域名访问了。</p>
+<p>如果同时配置了<em>lihui.io</em>和<em>www.lihui.io</em>的域名：</p>
+<ul>
+<li>当访问<em>www.lihui.io</em>时，Github会自动跳转到<em>lihui.io</em>。</li>
+<li>如果<em>Github Pagse</em>中配置的域名是<em>www.lihui.io</em>，
+那么当访问<em>lihui.io</em>时，Github会自动跳转到<em>www.lihui.io</em>。</li>
+</ul>
+<h2 id="2-2-blog-lihui-io-">2.2 <em>blog.lihui.io</em> 的配置</h2>
+<p>自定义二级域名需要配置一条<em>CNAME</em>类型的记录。</p>
+<p><em>主机记录</em>输入<em>blog</em>。</p>
+<p><em>记录值</em>输入<em>leehooi.github.io</em>。</p>
+<p>至此域名的配置已经完成了。
+配置完成后新域名不一定立刻生效，因为DNS的更新需要一定时间，一般几个小时之内就能访问了。</p>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[3].html" class="center-block">阅读全文</a></div><hr></div></div><footer class="blog-footer"><p>info@lihui.io</p></footer></body></html>
