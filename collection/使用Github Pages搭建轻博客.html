@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>使用Github Pages搭建轻博客 - Li Hui</title><link href="/site.css" rel="stylesheet"></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[1].html" class="reverse">使用Github Pages搭建轻博客[1]</a></h2><div class="blog-post-brief"><p>现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>使用Github Pages搭建轻博客 - 李辉</title><link href="/site.css" rel="stylesheet"></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[1].html" class="reverse">使用Github Pages搭建轻博客[1]</a></h2><div class="blog-post-brief"><p>现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
 最终我决定自己搭建一个功能单一的轻博客。
 这个文章系列会介绍我是一步一步如何搭建一个轻博客的。
 如果你已经具备了一些简单的前端开发的知识，那么就可以轻松理解这里的文章并搭建属于自己的博客。</p>
@@ -123,4 +123,40 @@ Github提供了<em>192.30.252.153</em>和<em>192.30.252.153</em>两个IP地址�
 <p><em>记录值</em>输入<em>leehooi.github.io</em>。</p>
 <p>至此域名的配置已经完成了。
 配置完成后新域名不一定立刻生效，因为DNS的更新需要一定时间，一般几个小时之内就能访问了。</p>
-<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[3].html" class="center-block">阅读全文</a></div><hr></div></div><footer class="blog-footer"><p>info@lihui.io</p></footer></body></html>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[3].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[4].html" class="reverse">使用Github Pages搭建轻博客[4]</a></h2><div class="blog-post-brief"><p>第2节中介绍了使用jade作为模板引擎生成html页面文件。</p>
+<p>回顾一下generate.js的代码：</p>
+<pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">var</span> fn = jade.compileFile(<span class="hljs-string">'index.jade'</span>, { <span class="hljs-string">'pretty'</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">var</span> html = fn({ <span class="hljs-string">'content'</span>: <span class="hljs-string">'&lt;span&gt;hello&lt;/span&gt;'</span> });
+
+fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
+</code></pre><p><em>content</em>的html片段可以是从文件中读取。</p>
+<p>但是用html直接来写博客，内容的排版很不方便。</p>
+<h1 id="markdown">Markdown</h1>
+<p><em>Markdown</em>是一种轻量级的标记语言，简练的语法用来写作博客、排版很方便。</p>
+<p><a href="https://www.npmjs.com/package/marked">marked</a>可以帮助我们将markdown翻译为html。</p>
+<p>安装marked：</p>
+<pre><code class="lang-bash">npm install marked --save
+</code></pre>
+<p>使用也很简单：</p>
+<pre><code><span class="hljs-keyword">var</span> marked = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marked'</span>);
+<span class="hljs-built_in">console</span>.log(marked(<span class="hljs-string">'I am using __markdown__.'</span>));
+<span class="hljs-comment">// Outputs: &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;</span>
+</code></pre><p>因此，之前的generate.js可以修改为如下：</p>
+<pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> marked = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marked'</span>);
+
+<span class="hljs-keyword">var</span> fn = jade.compileFile(<span class="hljs-string">'index.jade'</span>, { <span class="hljs-string">'pretty'</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">var</span> content = fs.readFile(<span class="hljs-string">'blog.md'</span>);
+
+<span class="hljs-keyword">var</span> html = fn({ <span class="hljs-string">'content'</span>: marked(content) });
+
+fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
+</code></pre><p>其中<em>blog.md</em>文件里面是使用markdown写作好的博客文章。
+使用<em>marked</em>转换为html片段后，再使用jade模板生成完整的html页面。</p>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[4].html" class="center-block">阅读全文</a></div><hr></div></div><footer class="blog-footer"><p>info@lihui.io</p></footer></body></html>
