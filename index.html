@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>李辉</title><link href="/site.css" rel="stylesheet"></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[4].html" class="reverse">使用Github Pages搭建轻博客[4]</a></h2><div class="blog-post-brief"><p>第2节中介绍了使用jade作为模板引擎生成html页面文件。</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>李辉</title><link href="/site.css" rel="stylesheet"><script src="/site.js" type="text/javascript" async charset="UTF-8"></script></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[4].html" class="reverse">使用Github Pages搭建轻博客[4]</a><br><small>使用Markdown书写博客并生成页面</small></h2><div class="blog-post-brief"><p>第2节中介绍了使用jade作为模板引擎生成html页面文件。</p>
 <p>回顾一下generate.js的代码：</p>
 <pre><code><span class="hljs-keyword">var</span> jade = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>);
 <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
@@ -34,7 +34,7 @@ fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
 fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
 </code></pre><p>其中<em>blog.md</em>文件里面是使用markdown写作好的博客文章。
 使用<em>marked</em>转换为html片段后，再使用jade模板生成完整的html页面。</p>
-<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[4].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[3].html" class="reverse">使用Github Pages搭建轻博客[3]</a></h2><div class="blog-post-brief"><p>想要你的博客更加个性化？
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[4].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[3].html" class="reverse">使用Github Pages搭建轻博客[3]</a><br><small>给Github Pages绑定自己的域名</small></h2><div class="blog-post-brief"><p>想要你的博客更加个性化？
 为你的博客配置一个属于自己的域名吧。
 当购买了心仪的域名后，阅读这篇文章，介绍如何使用自己的域名访问博客。
 我购买的域名是<em>lihui.io</em>。
@@ -100,7 +100,7 @@ Github提供了<em>192.30.252.153</em>和<em>192.30.252.153</em>两个IP地址�
     }
 }
 </code></pre>
-<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/Visual-Studio-Code-Grunt文件不在根目录，如何配置task？.html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[2].html" class="reverse">使用Github Pages搭建轻博客[2]</a></h2><div class="blog-post-brief"><p>Github Pages能够将我们的页面展示在互联网上。
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/Visual-Studio-Code-Grunt文件不在根目录，如何配置task？.html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[2].html" class="reverse">使用Github Pages搭建轻博客[2]</a><br><small>使用Jade语言模板生成HTML页面</small></h2><div class="blog-post-brief"><p>Github Pages能够将我们的页面展示在互联网上。
 虽然页面内容由我们来决定，但是所有页面都需要手动去写很不现实。
 Github Pages官方推荐了使用<a href="https://jekyllrb.com/docs/quickstart/">Jekyll</a>来生成博客。
 这时一个ruby环境的静态博客生成工具，感兴趣的朋友可以了解一下。</p>
@@ -153,7 +153,7 @@ fs.writeFileSync(<span class="hljs-string">'index.html'</span>, html);
 <li>完善generate.js代码。<em>content</em>的内容应该是从文件中读取，而不是hardcode在代码中。</li>
 <li>完善index.jade文件。让你的页面看上去更完整、生动。</li>
 </ol>
-<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[2].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[1].html" class="reverse">使用Github Pages搭建轻博客[1]</a></h2><div class="blog-post-brief"><p>现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[2].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[1].html" class="reverse">使用Github Pages搭建轻博客[1]</a><br><small>注册Github Pages，并创建第一个页面</small></h2><div class="blog-post-brief"><p>现在免费的、开源的博客系统已经有许多，并且提供丰富的功能和模板，让我挑花了眼。
 最终我决定自己搭建一个功能单一的轻博客。
 这个文章系列会介绍我是一步一步如何搭建一个轻博客的。
 如果你已经具备了一些简单的前端开发的知识，那么就可以轻松理解这里的文章并搭建属于自己的博客。</p>
