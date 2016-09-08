@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>巧用git log汇总工作报告 - 李辉</title><link href="/site.css" rel="stylesheet"><script src="/site.js" type="text/javascript" async charset="UTF-8"></script></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collections.html" class="reverse blog-nav-item">合集</a><a href="/tags.html" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"><h2 class="blog-post-title">巧用git log汇总工作报告</h2><div class="blog-post-meta clearfix"><ul class="list-inline pull-right"><li><a href="/tag/git.html"><span class="blog-tag">git</span></a></li></ul><span>2016-09-08 10:06:47</span></div><h1 id="-">背景</h1>
+<p>公司每周末需要提交每天工作内容。
+由于每天工作内容基本上都是做feature、改bug，
+所以在周五统一从git的迁入日志把自己的日志中摘出来汇总。
+这是一个体力活，项目架构有若干个git库，每个git库里面有若干人的工作分支合并进去。
+所以这个事情要花费近1个小时来完成。</p>
+<h1 id="-git-log-">使用git log命令汇总</h1>
+<p>git log命令有丰富的参数，在git库目录下面执行这个命令，
+就可以汇总我自己一周内每天的日志，并且以CSV格式文件输出：</p>
+<pre><code>git <span class="hljs-keyword">log</span> --pretty=<span class="hljs-string">"%cd,%s"</span> --date=short --since=<span class="hljs-number">5</span>.days --committer=<span class="hljs-string">"Your Name"</span> --<span class="hljs-keyword">no</span>-merges -<span class="hljs-number">999</span> &gt; log.csv
+</code></pre><p>参数详解：</p>
+<ul>
+<li>--committer 仅显示指定提交者的日志。这里写自己提交代码用的名字即可。</li>
+<li>--since 仅显示指定时间内的日志。我要显示本周内的，所以是5.days。</li>
+<li>--no-merges 不显示合并的日志。我只想显示我的日志，不显示合并的日志。</li>
+<li>--pretty 格式化显示内容。%cd代表提交日期，%s代表提交描述。由于是导出CSV格式，所以用逗号隔开。</li>
+<li>--date 指定日期格式。short格式是以<em>YYYY-MM-DD</em>格式输出。</li>
+<li>-n 指定显示最大条数。git log命令的显示结果比较多的时候，会有上下翻页的交互，这样没办法重定向到文件。
+所以这里指定最多显示999条数据，就不会有交互，直接输出日志</li>
+<li>结尾是一个重定向输出到文件的命令，最终结果会保存在log.csv文件里面。</li>
+</ul>
+<p>多个git库需要汇总的话，可以使用批处理脚本，分别在每个库目录下执行命令，重定向到同一个CSV文件中。
+汇总后的CSV直接用强大的excel打开，排序，生成图表什么的。</p>
+</div></div><div data-thread-key="B1473300407000" data-title="巧用git log汇总工作报告" data-url="http://lihui.io/article/巧用git-log汇总工作报告.html" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"232611883"};</script></div><footer class="blog-footer"><p>info@lihui.io</p></footer></body></html>
