@@ -1,4 +1,29 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>李辉</title><link href="/site.css" rel="stylesheet"><script src="/site.js" type="text/javascript" async charset="UTF-8"></script></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collection/" class="reverse blog-nav-item">合集</a><a href="/tag/" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用margin-0-auto;无法居中.html" class="reverse">使用margin 0 auto;无法居中</a></h2><div class="blog-post-brief"><p>CSS中使用 <code>margin:0 auto;</code> 可以让元素居中。</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>李辉</title><link href="/site.css" rel="stylesheet"><script src="/site.js" type="text/javascript" async charset="UTF-8"></script></head><body><div class="blog-masthead"><div class="container"><nav class="blog-nav"><a class="reverse blog-nav-item"><img src="/asset/avatar.jpg" class="img-circle size-32"></a><a href="/" class="reverse blog-nav-item">首页</a><a href="/collection/" class="reverse blog-nav-item">合集</a><a href="/tag/" class="reverse blog-nav-item">标签</a><a href="/archive.html" class="reverse blog-nav-item">归档</a></nav></div></div><div class="container"> <hr><div class="blog-main"><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用Github-Pages搭建轻博客[5].html" class="reverse">使用Github Pages搭建轻博客[5]</a></h2><div class="blog-post-brief"><p>为你博客中的代码片段着色。</p>
+<p><em>Markdown</em>中本身支持代码片段的语法，生成的html用<code>&lt;code&gt;</code>便签包围。
+但是代码颜色没有高亮显示。</p>
+<h1 id="highlight-js">highlight.js</h1>
+<p>要实现代码高亮可以使用<a href="https://www.npmjs.com/package/highlight.js">highlight.js</a></p>
+<p>安装highlight.js:</p>
+<pre><code class="lang-bash">npm install highlight.js --save
+</code></pre>
+<p>使用highlight.js:</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> markdown = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marked'</span>);
+<span class="hljs-keyword">var</span> hljs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'highlight.js'</span>);
+
+markdown.setOptions({
+    highlight: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">code, lang</span>) </span>{
+        <span class="hljs-keyword">return</span> hljs.highlight(lang, code).value;
+    }
+});
+
+<span class="hljs-keyword">var</span> content = fs.readFile(<span class="hljs-string">'blog.md'</span>);
+<span class="hljs-keyword">var</span> html = markdown(content);
+</code></pre>
+<p>代码高亮后的html在浏览的时候发现并没有被着色，但是发现代码里的关键字都被设置了样式。
+所以定义好样式的颜色就能看到着色后的代码了。</p>
+<p>highlight.js官方也提供了一些样式表，可以到<a href="https://github.com/isagalaev/highlight.js/tree/master/src/styles">这里</a>选取一个来使用。</p>
+<div class="blog-post-brief-mask"></div></div></div><div class="text-center">      <a href="/article/使用Github-Pages搭建轻博客[5].html" class="center-block">阅读全文</a></div><hr><div class="blog-post"> <h2 class="blog-post-title"> <a href="/article/使用margin-0-auto;无法居中.html" class="reverse">使用margin 0 auto;无法居中</a></h2><div class="blog-post-brief"><p>CSS中使用 <code>margin:0 auto;</code> 可以让元素居中。</p>
 <p>使用的时候需要注意下面几点：</p>
 <ol>
 <li>只能让元素相对于父元素居中，不能让元素内部的元素居中。</li>
